@@ -1,6 +1,7 @@
 gulp = require 'gulp'
 coffee = require 'gulp-coffee'
 stylus = require 'gulp-stylus'
+concat = require 'gulp-concat'
 bower = require 'gulp-bower'
 browserify = require 'gulp-browserify'
 jade = require 'gulp-jade'
@@ -29,8 +30,9 @@ task 'bower',
   'build/js/lib'
 
 watch 'browserify',
-  'build/js/app.js'
+  'build/js/*.js'
   -> browserify()
+  -> concat('app.js')
   'bin/js/'
   'app.js'
 
@@ -43,8 +45,8 @@ task 'buildjs', [
 # Default Task
 task 'default', [
   'buildjs'
+  'browserify'
   'css'
   'templates'
 ], ->
   serve 'bin'
-

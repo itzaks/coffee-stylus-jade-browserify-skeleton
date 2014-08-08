@@ -25,5 +25,3 @@ build/Release
 node_modules
 
 # Build files
-build
-bin

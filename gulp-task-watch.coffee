@@ -16,6 +16,7 @@ source = (src) ->
     else src
 
 pipe = (stream, pipes, dest) ->
+  console.log pipes, dest
   stream = stream.pipe step() for step in pipes
   stream.pipe gulp.dest dest
 
@@ -41,4 +42,3 @@ exports.serve = (baseDir = './') ->
     notify: false
   for task, path of watchedTasks
     gulp.watch path, [task]
-
