@@ -1,5 +1,5 @@
 (function() {
-  var $, $$, App, Page, View, lasso, page, pages, _ref,
+  var $, $$, App, Menu, Page, View, lasso, _ref,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -10,9 +10,7 @@
 
   Page = require('./page');
 
-  page = require('page');
-
-  pages = ['/', 'space', 'je taime', 'mind'];
+  Menu = require('./menu');
 
   require('./lib/helpers');
 
@@ -29,42 +27,28 @@
         "class": 'app'
       }, (function(_this) {
         return function() {
-          _this.nav(function() {
-            var url, _i, _len, _results;
-            _results = [];
-            for (_i = 0, _len = pages.length; _i < _len; _i++) {
-              url = pages[_i];
-              _results.push(_this.a({
-                href: "/" + url
-              }, url));
-            }
-            return _results;
-          });
+          _this.subview('menu', new Menu());
           return _this.div({
             "class": 'page',
             outlet: 'page_container'
           }, function() {
-            return _this.h2("Pagess");
+            return _this.h2("Page container");
           });
         };
       })(this));
     };
 
-    App.prototype.route = function(event, element) {
-      page(element.attr('href'));
-      return event.preventDefault();
-    };
-
     App.prototype.initialize = function(on_dom) {
-      var url, _i, _len;
-      for (_i = 0, _len = pages.length; _i < _len; _i++) {
-        url = pages[_i];
+      var page, url, _i, _len, _ref1;
+      page = require('page');
+      _ref1 = require('./lib/pages');
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        url = _ref1[_i];
         page(url, this.open_page);
       }
-      page({
+      return page({
         dispatch: false
       });
-      return console.log('entering spaceshipzxxx ey mada faks yookoko');
     };
 
     App.prototype.open_page = function(context) {
