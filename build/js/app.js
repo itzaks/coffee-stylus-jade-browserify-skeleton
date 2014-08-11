@@ -1,11 +1,14 @@
 (function() {
-  var $, $$, App, View, lasso, page, pages, _ref,
+  var $, $$, App, Page, View, lasso, page, pages, _ref,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   _ref = require('space-pen'), View = _ref.View, $$ = _ref.$$, $ = _ref.$;
 
   lasso = require('lasso-js');
+
+  Page = require('./page');
 
   page = require('page');
 
@@ -17,6 +20,7 @@
     __extends(App, _super);
 
     function App() {
+      this.open_page = __bind(this.open_page, this);
       return App.__super__.constructor.apply(this, arguments);
     }
 
@@ -37,9 +41,10 @@
             return _results;
           });
           return _this.div({
-            "class": 'page'
+            "class": 'page',
+            outlet: 'page_container'
           }, function() {
-            return _this.h2("Page???");
+            return _this.h2("Pagess");
           });
         };
       })(this));
@@ -56,13 +61,16 @@
         url = pages[_i];
         page(url, this.open_page);
       }
-      return page({
+      page({
         dispatch: false
       });
+      return console.log('entering spaceshipzxxx ey mada faks yookoko');
     };
 
-    App.prototype.open_page = function(event, yo, loo) {
-      return console.log(event, yo, loo);
+    App.prototype.open_page = function(context) {
+      return this.page_container.html(new Page({
+        title: context.pathname
+      }));
     };
 
     return App;
